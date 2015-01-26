@@ -26,7 +26,7 @@ You can use one of those providers to generate audio files from your text :
 
 ### TTS.js
 
-First you have to add the [https://www.npmjs.com/package/tts.js](tts.js) module to your project.
+First you have to add the [tts.js](https://www.npmjs.com/package/tts.js) module to your project.
 
 ```
 npm install --save tts.js
