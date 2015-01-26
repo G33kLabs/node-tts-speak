@@ -1,6 +1,6 @@
 {
   "name": "tts-speak",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "A standard Text To Speech wrapper with multiple providers support. Once the sound file is generated, find an installed audio player and play the sound.",
   "main": "index.js",
   "scripts": {

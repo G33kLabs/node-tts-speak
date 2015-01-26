@@ -27,7 +27,7 @@ var TTS = function(options) {
     }, options);
 
     // Extends core with logger
-    _.extend(self, Logger.builder('[tts-speak-'+self.name+']', self.opts.loglevel));
+    _.extend(self, Logger.builder('[tts-'+self.name+']', self.opts.loglevel));
 
     // Verify that API key is set
     if ( ! self.opts.key ) {
