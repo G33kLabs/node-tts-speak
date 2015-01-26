@@ -47,7 +47,7 @@ TTS.prototype.exec = function(obj, next) {
 
     // Get the file signature
     var signature = md5(_.values(_.omit(qs, 'key')).join('-'));
-    var cachePath = self.opts.cache + '/' + self.name + '/' + qs.hl + '/' + signature.substr(0, 2) + '/' + slugify(qs.src) + '-' + signature + '.' + self.opts.format;
+    var cachePath = self.opts.cache + '/' + self.name + '/' + opts.lang + '/' + signature.substr(0, 2) + '/' + slugify(opts.src) + '-' + signature + '.' + self.opts.format;
 
     // When complete
     var onComplete = function(err, result) {

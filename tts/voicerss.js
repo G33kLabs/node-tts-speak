@@ -61,7 +61,7 @@ TTS.prototype.exec = function(obj, next) {
 
     // Get the file signature
     var signature = md5(_.values(_.omit(qs, 'key')).join('-'));
-    var cachePath = self.opts.cache + '/' + self.name + '/' + qs.hl + '/' + signature.substr(0, 2) + '/' + slugify(qs.src) + '-' + signature + '.' + self.opts.format;
+    var cachePath = self.opts.cache + '/' + self.name + '/' + opts.lang + '/' + signature.substr(0, 2) + '/' + slugify(opts.src) + '-' + signature + '.' + self.opts.format;
 
     // When complete
     var onComplete = function(err, result) {
@@ -72,12 +72,12 @@ TTS.prototype.exec = function(obj, next) {
 
     // Returns cache if already exists
     if (fs.existsSync(cachePath)) {
-        self.trace('Read file "' + qs.src + '" from cache');
+        self.trace('Read file "' + opts.src + '" from cache');
         return onComplete(null, cachePath);
     }
 
     // Exec the request
-    self.info('Request sound file "' + qs.src + '"');
+    self.info('Request sound file "' + opts.src + '"');
     request({
             url: self.opts.api,
             qs: qs,
