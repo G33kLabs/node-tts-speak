@@ -1,6 +1,6 @@
 {
   "name": "tts-speak",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A standard Text To Speech wrapper with multiple providers support. Once the sound file is generated, find an installed audio player and play the sound.",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/G33kLabs/node-tts-speak",
   "dependencies": {
     "MD5": "^1.2.1",
-    "find-exec": "0.0.6",
+    "find-exec": "git://github.com/G33kLabs/find-exec",
     "fs-extra": "^0.15.0",
     "g33k-logger": "^0.1.0",
     "lodash": "^2.4.1",
