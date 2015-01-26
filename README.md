@@ -23,6 +23,7 @@ You can use one of those providers to generate audio files from your text :
 
 - tts.js : A local tts engine, that is not perfect but which support many languages
 - api.voicerss.org : An API required service with beautiful voices and a large language support
+- google : Use the well known translate_tts service from google
 
 ### TTS.js
 
@@ -89,6 +90,29 @@ var speak = new Speak({
     loglevel: 0                         // Wrapper log level
 });
 ```
+
+### Google
+
+```
+// Create the wrapper with "google" provider with full options
+var Speak = require('tts-speak');
+var speak = new Speak({
+    tts: {
+        engine: 'google',               // The engine to use for tts
+        lang: 'en-us',                  // The voice to use
+        cache: __dirname + '/cache',    // The cache directory were audio files will be stored
+        loglevel: 0,                    // TTS log level (0: trace -> 5: fatal)
+        delayAfter: 500                 // Mark a delay (ms) after each message
+    },
+    speak: {
+        engine: 'auto',                 // Auto select the audio player
+        volume: 100,                    // Volume in %
+        loglevel: 0                     // Audio player log level
+    },
+    loglevel: 0                         // Wrapper log level
+});
+```
+
 
 ## Usage
 
