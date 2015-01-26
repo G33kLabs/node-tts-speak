@@ -20,7 +20,7 @@ var TTS = function(options) {
         api: 'http://translate.google.com/translate_tts',
         format: 'mp3',
         loglevel: 0,
-        delayAfter: 500
+        delayAfter: 700
     }, options);
 
     // Extends core with logger
