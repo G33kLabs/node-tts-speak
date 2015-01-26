@@ -102,7 +102,7 @@ speak.once('ready', function() {
 
     // Catch when all queue is complete
     speak.once('idle', function() {
-        speak.say("Et je t'en merdeux...");
+        speak.say("Of course, with my new text to speech wrapper !");
     });
 
 });
