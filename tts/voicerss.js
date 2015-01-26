@@ -17,7 +17,7 @@ var TTS = function(options) {
     self.opts = _.extend({
         key: null,
         lang: 'en-us',
-        speed: 0,
+        speed: 50,
         cache: false,
         api: 'http://api.voicerss.org',
         format: 'mp3',
