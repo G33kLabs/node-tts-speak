@@ -1,145 +1,149 @@
-# node-tts-speak
+# tts-speak
 
-A standard Text To Speech generator with multiple providers support. Once file is generated, use 'aplay' or 'afplay' to play this sound.
+A standard Text To Speech wrapper with multiple providers support.
+
+Once the sound file is generated, find an installed audio player and play the sound.
+
+## Features
+
+- One wrapper for all tts providers (ideal for testing)
+- Multiplatform Audio Playing (mplayer, afplay, mpg123, mpg321, play)
+- Cache generated audio files (and protect your ratio against limitation for online providers)
+- Multilingual
+
+## Installation
 
 ```
+npm install --save tts-speak
+```
+
+## TTS Providers
+
+You can use one of those providers to generate audio files from your text :
+
+- tts.js : A local tts engine, that is not perfect but which support many languages
+- api.voicerss.org : An API required service with beautiful voices and a large language support
+
+### TTS.js
+
+First you have to add the [https://www.npmjs.com/package/tts.js](tts.js) module to your project.
+
+```
+npm install --save tts.js
+```
+
+Example code :
+
+```
+// Create the wrapper with "tts.js" provider
 var Speak = require('tts-speak');
 var speak = new Speak({
-	tts: {
-		engine: {
-			name: 'voicerss',
-			key: 'XXXXXXXXXXXX',
-		},
-		lang: 'en-us',
-		speed: 0
-	},
-	speak: {
-		engine: 'default',
-		volume: 100
-	}
+    tts: {
+        engine: 'tts',
+        lang: 'en-us',
+        speed: 60,
+        cache: __dirname + '/cache',
+        loglevel: 0
+    },
+    speak: {
+        engine: 'auto',
+        volume: 100,
+        loglevel: 0
+    },
+    loglevel: 0
 });
-speak.say('Hello world !'); 
 ```
 
-## Providers
+### api.voicerss.org
 
-At this early state of development, only 'api.voicerss.org' provider is supported.
+To use this provider, you have to request an API key by registering on [http://www.voicerss.org/api/demo.aspx](http://www.voicerss.org/api/demo.aspx)
 
-### Voicerss.org
+Example code :
 
-#### `lang` availables
+```
+// Create the wrapper with "voicerss" provider
+var Speak = require('tts-speak');
+var speak = new Speak({
+    tts: {
+        engine: {
+            name: 'voicerss',
+            key: 'XXXXXXXXXXXXXXX',
+        },
+        lang: 'en-us',
+        speed: 60,
+        cache: __dirname + '/cache',
+        loglevel: 0
+    },
+    speak: {
+        engine: 'auto',
+        volume: 100,
+        loglevel: 0
+    },
+    loglevel: 0
+});
+```
 
-<table cellpadding="4" cellspacing="0" width="100%">
-    <tr>
-        <td align="center" style="width: 150px" class="table_border">
-            Language code
-        </td>
-        <td align="center" style="width: auto" class="table_border">
-            Language name
-        </td>
-    </tr>
-    <tr>
-        <td class="table_border">ca-es</td>
-        <td class="table_border">Catalan</td>
-    </tr>
-    <tr>
-        <td class="table_border">zh-cn</td>
-        <td class="table_border">Chinese (China)</td>
-    </tr>
-    <tr>
-        <td class="table_border">zh-hk</td>
-        <td class="table_border">Chinese (Hong Kong)</td>
-    </tr>
-    <tr>
-        <td class="table_border">zh-tw</td>
-        <td class="table_border">Chinese (Taiwan)</td>
-    </tr>
-    <tr>
-        <td class="table_border">da-dk</td>
-        <td class="table_border">Danish</td>
-    </tr>
-    <tr>
-        <td class="table_border">nl-nl</td>
-        <td class="table_border">Dutch</td>
-    </tr>
-    <tr>
-        <td class="table_border">en-au</td>
-        <td class="table_border">English (Australia)</td>
-    </tr>
-    <tr>
-        <td class="table_border">en-ca</td>
-        <td class="table_border">English (Canada)</td>
-    </tr>
-    <tr>
-        <td class="table_border">en-gb</td>
-        <td class="table_border">English (Great Britain)</td>
-    </tr>
-    <tr>
-        <td class="table_border">en-in</td>
-        <td class="table_border">English (India)</td>
-    </tr>
-    <tr>
-        <td class="table_border">en-us</td>
-        <td class="table_border">English (United States)</td>
-    </tr>
-    <tr>
-        <td class="table_border">fi-fi</td>
-        <td class="table_border">Finnish</td>
-    </tr>
-    <tr>
-        <td class="table_border">fr-ca</td>
-        <td class="table_border">French (Canada)</td>
-    </tr>
-    <tr>
-        <td class="table_border">fr-fr</td>
-        <td class="table_border">French (France)</td>
-    </tr>
-    <tr>
-        <td class="table_border">de-de</td>
-        <td class="table_border">German</td>
-    </tr>
-    <tr>
-        <td class="table_border">it-it</td>
-        <td class="table_border">Italian</td>
-    </tr>
-    <tr>
-        <td class="table_border">ja-jp</td>
-        <td class="table_border">Japanese</td>
-    </tr>
-    <tr>
-        <td class="table_border">ko-kr</td>
-        <td class="table_border">Korean</td>
-    </tr>
-    <tr>
-        <td class="table_border">nb-no</td>
-        <td class="table_border">Norwegian</td>
-    </tr>
-    <tr>
-        <td class="table_border">pl-pl</td>
-        <td class="table_border">Polish</td>
-    </tr>
-    <tr>
-        <td class="table_border">pt-br</td>
-        <td class="table_border">Portuguese (Brazil)</td>
-    </tr>
-    <tr>
-        <td class="table_border">pt-pt</td>
-        <td class="table_border">Portuguese (Portugal)</td>
-    </tr>
-    <tr>
-        <td class="table_border">ru-ru</td>
-        <td class="table_border">Russian</td>
-    </tr>
-    <tr>
-        <td class="table_border">es-mx</td>
-        <td class="table_border">Spanish (Mexico)</td>
-    </tr>
-    <tr>
-        <td class="table_border">es-es</td>
-        <td class="table_border">Spanish (Spain)</td>
-    </tr>
-    <tr>
-        <td class="table_border">sv-se</td>
-        <td class="table_border">Swedish (Sweden)</td>
-    </tr>
-</table>
+## Usage
+
+Once the speak instance is ready, you can generate and play tts.
+
+```
+speak.once('ready', function() {
+
+    // Chaining
+    speak
+        .say("Hello and welcome here !")
+        .wait(1000)
+        .say({
+            src: 'Parlez-vous français ?',
+            lang: 'fr-fr',
+            speed: 30
+        });
+
+    // Catch when all queue is complete
+    speak.once('idle', function() {
+        speak.say("Et je t'en merdeux...");
+    });
+
+});
+```
+
+## Chainable Methods
+
+### `speak.say(obj)`
+
+`obj` can be a string or an object that is able to override default config.
+
+### `speak.wait(ms)`
+
+`ms` indicates the time in milliseconds to wait before continue.
+
+### `speak.stop()`
+
+Clean the queue and kill audio player if playing.
+
+
+## Events
+
+### `speak.on('ready', fn)`
+
+When all interfaces are ready.
+
+### `speak.on('idle', fn)`
+
+When queue is complete after a job.
+
+### `speak.on('play', fn)`
+
+When a sound file is played
+
+### `speak.on('pause', fn)`
+
+When a pause is marked
+
+### `speak.on('stop', fn)`
+
+When all jobs are canceled.
+
+
+
