@@ -123,7 +123,7 @@ speak.once('ready', function() {
 Clean the queue and kill audio player if playing.
 
 
-## Events
+## Events (`on` or `once`)
 
 ### `speak.on('ready', fn)`
 
@@ -135,11 +135,11 @@ When queue is complete after a job.
 
 ### `speak.on('play', fn)`
 
-When a sound file is played
+When a sound file is played.
 
 ### `speak.on('pause', fn)`
 
-When a pause is marked
+When a pause is marked.
 
 ### `speak.on('stop', fn)`
 
