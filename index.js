@@ -1,4 +1,5 @@
 'use strict';
+/* globals _: true */
 var fs = require('fs-extra'),
     Logger = require('g33k-logger'),
     util = require('util'),

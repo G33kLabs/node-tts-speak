@@ -35,22 +35,26 @@ npm install --save tts.js
 Example code :
 
 ```
-// Create the wrapper with "tts.js" provider
+// Create the wrapper with "tts.js" provider with full options
 var Speak = require('tts-speak');
 var speak = new Speak({
     tts: {
-        engine: 'tts',
-        lang: 'en-us',
-        speed: 60,
-        cache: __dirname + '/cache',
-        loglevel: 0
+        engine: 'tts',                  // The engine to use for tts
+        lang: 'en-us',                  // The voice to use
+        amplitude: 100,                 // Amplitude from 0 to 200
+        wordgap: 0,                     // Gap between each word
+        pitch: 50,                      // Voice pitch
+        speed: 60,                      // Speed in %
+        cache: __dirname + '/cache',    // The cache directory were audio files will be stored
+        loglevel: 0,                    // TTS log level (0: trace -> 5: fatal)
+        delayAfter: 700                 // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',
-        volume: 100,
-        loglevel: 0
+        engine: 'auto',                 // Auto select the audio player
+        volume: 100,                    // Volume in %
+        loglevel: 0                     // Audio player log level
     },
-    loglevel: 0
+    loglevel: 0                         // Wrapper log level
 });
 ```
 
@@ -61,25 +65,28 @@ To use this provider, you have to request an API key by registering on [http://w
 Example code :
 
 ```
-// Create the wrapper with "voicerss" provider
+// Create the wrapper with "voicerss" provider with full options
 var Speak = require('tts-speak');
 var speak = new Speak({
-    tts: {
-        engine: {
-            name: 'voicerss',
-            key: 'XXXXXXXXXXXXXXX',
+    tts: {  
+        engine: {                       // The engine to use for tts
+            name: 'voicerss',           
+            key: 'XXXXXXXXXXXXXXX',     // The API key to use
         },
-        lang: 'en-us',
-        speed: 60,
-        cache: __dirname + '/cache',
-        loglevel: 0
+        lang: 'en-us',                  // The voice to use
+        speed: 60,                      // Speed in %
+        format: 'mp3',                  // Output audio format
+        quality: '44khz_16bit_stereo',  // Output quality
+        cache: __dirname + '/cache',    // The cache directory were audio files will be stored
+        loglevel: 0,                    // TTS log level (0: trace -> 5: fatal)
+        delayAfter: 0                   // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',
-        volume: 100,
-        loglevel: 0
+        engine: 'auto',                 // Auto select the audio player
+        volume: 100,                    // Volume in %
+        loglevel: 0                     // Audio player log level
     },
-    loglevel: 0
+    loglevel: 0                         // Wrapper log level
 });
 ```
 
