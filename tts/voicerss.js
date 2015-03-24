@@ -72,7 +72,7 @@ TTS.prototype.exec = function(obj, next) {
 
     // Returns cache if already exists
     if (fs.existsSync(cachePath)) {
-        self.trace('Read file "' + opts.src + '" from cache');
+        self.trace('Play file "' + opts.src + '" from cache');
         return onComplete(null, cachePath);
     }
 
@@ -88,7 +88,7 @@ TTS.prototype.exec = function(obj, next) {
         function(err, res, body) {
             if (!err && body.length) {
                 fs.outputFileSync(cachePath, body);
-                self.success('Store cache file at "' + cachePath + '"');
+                self.debug('Store cache file at "' + cachePath + '"');
             }
             onComplete(err, cachePath);
 

@@ -21,7 +21,7 @@ var Core = function(options) {
             cache: false
         },
         speak: {
-            engine: 'default',
+            engine: 'mplayer',
             volume: 100
         },
         loglevel: 0
@@ -98,9 +98,6 @@ Core.prototype.say = function(obj, opts) {
 Core.prototype.runStep = function() {
     var self = this;
 
-    // Lock with isRunning flag
-    if (self.isRunning) return;
-
     // If no more items in the queue, exit
     if (!self.queue || !self.queue.length) {
         self.isRunning = false;
@@ -108,13 +105,16 @@ Core.prototype.runStep = function() {
         return;
     }
 
+    // Lock with isRunning flag
+    if (self.isRunning) return;
+
     // Set as running
     self.isRunning = true;
 
     // Define onComplete
     var onComplete = function() {
-        self.isRunning = false;
         process.nextTick(function() {
+            self.isRunning = false;
             self.runStep();
         });
     };
@@ -142,9 +142,8 @@ Core.prototype.runStep = function() {
                         }, obj));
                         onComplete(err, result);
                     });
-                }
-                else {
-                	onComplete(err); 
+                } else {
+                    onComplete(err);
                 }
             });
         } else {

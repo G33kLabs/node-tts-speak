@@ -2,9 +2,8 @@
 /* globals _: true */
 
 var _ = require('lodash'),
-    findExec = require('find-exec'),
     Logger = require('g33k-logger'),
-    spawn = require('child_process').spawn;
+    exec = require('child_process').execFile;
 
 var speak = function(options) {
     var self = this;
@@ -32,7 +31,6 @@ var speak = function(options) {
 
 
     // Find a player if no one defined explicitely
-    if (!self.opts.player) self.opts.player = findExec(self.opts.playerList);
     if (self.opts.player) self.name = self.opts.player;
 
     // Extends core with logger
@@ -47,10 +45,12 @@ speak.prototype.exec = function(file, next) {
         return next('No suitable audio player could be found - exiting.');
     }
     
-    self.proc = spawn(self.opts.player, ['-af', 'volume=0', file]);
-    self.proc.on('exit', function(code) {
-        if (_.isFunction(next)) next(null, code);
+    console.log(self.opts.player, ['-af', 'volume=0', file].join(' ')); 
+
+    self.proc = exec(self.opts.player, ['-af', 'volume=0', file], function(err) {
+        if (_.isFunction(next)) next(err);
     });
+    
 };
 
 speak.prototype.kill = function() {
