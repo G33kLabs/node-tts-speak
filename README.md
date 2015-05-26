@@ -51,8 +51,6 @@ var speak = new Speak({
         delayAfter: 700                 // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',                 // Auto select the audio player
-        volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -83,8 +81,6 @@ var speak = new Speak({
         delayAfter: 0                   // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',                 // Auto select the audio player
-        volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -105,8 +101,6 @@ var speak = new Speak({
         delayAfter: 500                 // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',                 // Auto select the audio player
-        volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
