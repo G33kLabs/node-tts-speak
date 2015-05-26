@@ -3,9 +3,9 @@
 // Create the wrapper with "voicerss" provider with full options
 var Speak = require('tts-speak');
 var speak = new Speak({
-    tts: {  
+    tts: {
         engine: {                       // The engine to use for tts
-            name: 'voicerss',           
+            name: 'voicerss',
             key: 'XXXXXXXXXXXXXXX',     // The API key to use
         },
         lang: 'en-us',                  // The voice to use
@@ -17,7 +17,7 @@ var speak = new Speak({
         delayAfter: 0                   // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'auto',                 // Auto select the audio player
+        engine: 'mplayer',                 // Auto select the audio player
         volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },

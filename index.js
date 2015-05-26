@@ -56,6 +56,9 @@ var Core = function(options) {
         self.speak = new(require(speak_engine_path))(speak_engine_opts);
         self.debug('Speak engine found : ' + self.speak.name);
     }
+    else {
+        self.error('No Speak engine found for ' + speak_engine_path);
+    }
 
     ////////////////////////////
     // Emit ready event or error if something has failed

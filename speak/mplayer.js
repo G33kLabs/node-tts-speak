@@ -3,7 +3,11 @@
 
 var _ = require('lodash'),
     Logger = require('g33k-logger'),
-    exec = require('child_process').execFile;
+    spawn = require('child_process').spawn;
+
+var fs = require('fs-extra');
+var lame = require('lame');
+var Speaker = require('speaker');
 
 var speak = function(options) {
     var self = this;
@@ -13,13 +17,7 @@ var speak = function(options) {
 
     // Set defaults
     self.opts = _.extend({
-        playerList: [
-            'mplayer',
-            'afplay',
-            'mpg123',
-            'mpg321',
-            'play'
-        ],
+        player: '/usr/bin/mpg321',
         playerOptions: {
             'mplayer': {
                 stdin: true,
@@ -34,7 +32,7 @@ var speak = function(options) {
     if (self.opts.player) self.name = self.opts.player;
 
     // Extends core with logger
-    _.extend(self, Logger.builder('[tts-speak-'+self.name+']', self.opts.loglevel));
+    _.extend(self, Logger.builder('[tts-speak-' + self.name + ']', self.opts.loglevel));
 
 };
 
@@ -44,19 +42,24 @@ speak.prototype.exec = function(file, next) {
     if (!self.opts.player) {
         return next('No suitable audio player could be found - exiting.');
     }
-    
-    console.log(self.opts.player, ['-af', 'volume=0', file].join(' ')); 
 
-    self.proc = exec(self.opts.player, ['-af', 'volume=0', file], function(err) {
-        if (_.isFunction(next)) next(err);
-    });
-    
+    self.trace(self.opts.player, [file].join(' '));
+
+    fs.createReadStream(file)
+        .pipe(new lame.Decoder())
+        .on('format', function(format) {
+            this.pipe(new Speaker(format));
+        })
+        .on('close', function() {
+            console.error('done!');
+        });
+
 };
 
 speak.prototype.kill = function() {
     var self = this;
     if (self.proc && (self.proc.exitCode === null)) {
-    	self.trace('Kill audio player'); 
+        self.trace('Kill audio player');
         self.proc.kill('SIGTERM');
     }
 };

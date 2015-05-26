@@ -1,6 +1,6 @@
 {
   "name": "tts-speak",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "A standard Text To Speech wrapper with multiple providers support. Once the sound file is generated, find an installed audio player and play the sound.",
   "main": "index.js",
   "scripts": {
@@ -29,8 +29,10 @@
     "MD5": "^1.2.1",
     "fs-extra": "^0.15.0",
     "g33k-logger": "^0.1.0",
+    "lame": "^1.2.2",
     "lodash": "^2.4.1",
     "request": "^2.51.0",
+    "speaker": "^0.2.5",
     "underscore.string": "^3.0.2"
   }
 }
