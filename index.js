@@ -117,7 +117,9 @@ Core.prototype.runStep = function() {
 
     // Start step with an optional delay
     setTimeout(function() {
+
         if (obj.src) {
+
             // Ask for tts sound file
             self.tts.exec(obj, function(err, file) {
 

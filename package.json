@@ -1,6 +1,6 @@
 {
   "name": "tts-speak",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A standard Text To Speech wrapper with multiple providers support. Once the sound file is generated it's play the sound from cache.",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,7 @@
     "g33k-logger": "^0.1.0",
     "lame": "^1.2.2",
     "lodash": "^2.4.2",
+    "node-mpg123-util": "0.0.1",
     "request": "^2.51.0",
     "speaker": "^0.2.5",
     "underscore.string": "^3.0.2"

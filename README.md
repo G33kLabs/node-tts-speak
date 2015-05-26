@@ -7,7 +7,8 @@ Once the sound file is generated, find an installed audio player and play the so
 ## Features
 
 - One wrapper for all tts providers (ideal for testing)
-- Multiplatform Audio Playing (mplayer, afplay, mpg123, mpg321, play)
+- Multiplatform Audio Playing (use package ['speaker'](https://github.com/TooTallNate/node-speaker) for that) 
+- Thanks to ['jkeylu/node-mpg123-util'](https://github.com/jkeylu/node-mpg123-util) for the speaker volume !
 - Cache generated audio files (and protect your ratio against limitation for online providers)
 - Multilingual
 
@@ -44,6 +45,7 @@ var speak = new Speak({
         delayAfter: 700                 // Mark a delay (ms) after each message
     },
     speak: {
+        volume: 80,                     // Audio player volume
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -74,6 +76,7 @@ var speak = new Speak({
         delayAfter: 0                   // Mark a delay (ms) after each message
     },
     speak: {
+        volume: 80,                     // Audio player volume
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -94,6 +97,7 @@ var speak = new Speak({
         delayAfter: 500                 // Mark a delay (ms) after each message
     },
     speak: {
+        volume: 80,                     // Audio player volume
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -122,6 +126,12 @@ speak.once('ready', function() {
     speak.once('idle', function() {
         speak.say("Of course, with my new text to speech wrapper !");
     });
+
+    // Will stop and clean all the queue
+    setTimeout(function() {
+        speak.stop();
+        speak.say('Ok, abort the last queue !')
+    }, 1000);
 
 });
 ```
