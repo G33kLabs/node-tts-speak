@@ -25,13 +25,6 @@ You can use one of those providers to generate audio files from your text :
 - api.voicerss.org : An API required service with beautiful voices and a large language support
 - google : Use the well known translate_tts service from google
 
-### TTS.js
-
-First you have to add the [tts.js](https://www.npmjs.com/package/tts.js) module to your project.
-
-```
-npm install --save tts.js
-```
 
 Example code :
 
