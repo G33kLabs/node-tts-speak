@@ -17,19 +17,8 @@ var speak = function(options) {
 
     // Set defaults
     self.opts = _.extend({
-        player: '/usr/bin/mpg321',
-        playerOptions: {
-            'mplayer': {
-                stdin: true,
-                volume: '-v'
-            }
-        },
         loglevel: 0
     }, options);
-
-
-    // Find a player if no one defined explicitely
-    if (self.opts.player) self.name = self.opts.player;
 
     // Extends core with logger
     _.extend(self, Logger.builder('[tts-speak-' + self.name + ']', self.opts.loglevel));
@@ -39,28 +28,34 @@ var speak = function(options) {
 speak.prototype.exec = function(file, next) {
     var self = this;
 
-    if (!self.opts.player) {
-        return next('No suitable audio player could be found - exiting.');
-    }
+    // Trace logs
+    self.trace("Play", [file].join(' '));
 
-    self.trace(self.opts.player, [file].join(' '));
-
+    // Decode to PCM then read with Speaker
     fs.createReadStream(file)
         .pipe(new lame.Decoder())
         .on('format', function(format) {
-            this.pipe(new Speaker(format));
+            self.speakInstance = new Speaker(format);
+            self.speakInstance.on('close', function() {
+                self.speakInstance = null;
+                next();
+            });
+            self.speakInstance.on('error', function(e) {
+
+            });
+            this.pipe(self.speakInstance);
         })
-        .on('close', function() {
-            console.error('done!');
+        .on('error', function(e) {
+            console.log("Lame error :", e)
         });
 
 };
 
 speak.prototype.kill = function() {
     var self = this;
-    if (self.proc && (self.proc.exitCode === null)) {
+    if (self.speakInstance) {
         self.trace('Kill audio player');
-        self.proc.kill('SIGTERM');
+        self.speakInstance.close();
     }
 };
 

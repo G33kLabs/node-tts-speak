@@ -15,8 +15,6 @@ var speak = new Speak({
         delayAfter: 700                 // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'mplayer',                 // Auto select the audio player
-        volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level

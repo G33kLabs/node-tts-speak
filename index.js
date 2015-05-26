@@ -4,7 +4,9 @@ var fs = require('fs-extra'),
     Logger = require('g33k-logger'),
     util = require('util'),
     EventEmitter = require('events').EventEmitter,
+    Speak = require('./speak'),
     _ = require('lodash');
+
 
 var Core = function(options) {
     var self = this;
@@ -21,7 +23,6 @@ var Core = function(options) {
             cache: false
         },
         speak: {
-            engine: 'mplayer',
             volume: 100
         },
         loglevel: 0
@@ -46,24 +47,13 @@ var Core = function(options) {
     }
 
     /////////////////////////////
-    // Load Speak engine
-    self.trace('Detect speak engine...');
-    var speak_engine = self.opts.speak;
-    var speak_engine_name = _.isObject(speak_engine.engine) ? speak_engine.engine.name : speak_engine.engine;
-    var speak_engine_opts = _.isObject(speak_engine.engine) ? _.extend({}, _.omit(speak_engine, 'engine'), speak_engine.engine) : speak_engine;
-    var speak_engine_path = __dirname + '/speak/' + speak_engine_name + '.js';
-    if (_.isString(speak_engine_name) && fs.existsSync(speak_engine_path)) {
-        self.speak = new(require(speak_engine_path))(speak_engine_opts);
-        self.debug('Speak engine found : ' + self.speak.name);
-    }
-    else {
-        self.error('No Speak engine found for ' + speak_engine_path);
-    }
+    // Load SPEAK engine
+    self.speak = new Speak(self.opts.speak)
 
     ////////////////////////////
     // Emit ready event or error if something has failed
     process.nextTick(function() {
-        if (self.tts && self.speak) {
+        if (self.tts) {
             self.emit('ready');
             self.ready = false;
         }
@@ -153,6 +143,7 @@ Core.prototype.runStep = function() {
             self.emit('pause', obj);
             onComplete();
         }
+
     }, obj.wait || 0);
 
 };

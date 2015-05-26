@@ -11,8 +11,6 @@ var speak = new Speak({
         delayAfter: 500                 // Mark a delay (ms) after each message
     },
     speak: {
-        engine: 'mplayer',                 // Auto select the audio player
-        volume: 100,                    // Volume in %
         loglevel: 0                     // Audio player log level
     },
     loglevel: 0                         // Wrapper log level
@@ -27,8 +25,7 @@ speak.once('ready', function() {
         .wait(1000)
         .say({
             src: 'Parlez-vous français ?',
-            lang: 'fr-fr',
-            speed: 40
+            lang: 'fr-fr'
         });
 
     // Catch when all queue is complete
